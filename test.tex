@@ -1,0 +1,98 @@
+\label{key}
+\documentclass[12pt, letter paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+\author{To, Jean-Francois}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\parindent}{0pt}
+\fancyhf{}
+\lhead{COMP 330 Assignment 6\\ Theory of Computation \\ }
+\rhead{To, Jean-Francois \\ McGill ID: 260927482 \\ }
+\rfoot{\thepage}
+
+\begin{document}
+\begin{enumerate}[label=\textbf{Question \arabic*},align=left]
+	\item ~\\
+		\begin{enumerate}
+			\item 
+				This is false. If $T_i$ is a TM that decides  $C_i$ and given a word
+				$w$, we would have to input  $w$ to every single $T_i$ to know if $w$ is
+				in the set or not. But this is not possible since it would never end.
+			\item 
+				This is true. Let $T_i$ be the generator of  $C_i$. We generate the
+				union as follows: Run $ T_1$ for one step, run $ T_1,T_2$ for two steps,
+				and so on. This generates the entire union and hence it is computably
+				enumurable.
+		\end{enumerate}
+	\item ~\\
+		\begin{enumerate}
+			\item By b), It is not CE hence it can't be computable
+			\item Suppose that $K$ is CE, then there exists a TM $A$ that accepts
+				$K$.We build a TM $B$ for $\overline{L}$ as follows. Given a word $w$,
+				add $b$ to it so it becomes $bw$. Then give it as input to $K$. This
+				machine $B$ accepts all words in  $\overline{L}$ which contradict our
+				assumption. Hence  $K$ is not  CE.
+			\item  Suppose that $K$ is co-CE, then there exists a TM $A$ that rejects
+				$K$. We build a TM $B$ for  $L$. Given  a word $w$, add $a$ so it
+				becomes  $aw$ then input it to  $A$. This machine rejects all words that
+				are not in $L$. Hence  $L$ is coCE which is a contradiciton.
+		\end{enumerate}
+	\item It is decidable. Let $\Gamma$ be the alphabet and  $Q$ be the number of
+		states. We count the possible number of configurations that use  $330$
+		cells. The head can be at  $331$ different positions  each with $Q$ possible
+		states. The number of ways of arranging the letters on  $330$ cells is
+		$\Gamma^{330}$. Hence the number of configurations is finite ($\Gamma^{330}
+		\cdot 331 \cdot Q$). Knowing this, we
+		run the TM longer than the number of configurations. If the TM is still
+		using only  $330$ cells, then we know that it is in a loop since a
+		configuration was repeated. Reject if that is the case. Otherwise accept.
+	\item ~\\
+		\begin{enumerate}
+			\item We build a new NFA $A$ as follows. Everything except the final
+				states of $A$ are the same as the machine that recognizes  $L$. The
+				final states of  $A$ are simply the states from which when we input $w$,
+				we reach a state that is in  $F$ where  $F$ are the final states in the
+				machine that recognizes $L$.
+			\item 
+				Let $N= \left\{ a^nb^n | n \geq 0 \right\} $. Then
+				\[
+					L = (N \# \Sigma^*) \cup ( \Sigma^* \# L(G) )
+				\] 
+				is context free. We sketch the grammar:
+				\begin{align*}
+					S \to X\#A | A\#Y
+				\end{align*}
+				where $X$ generates $N$ since $N$ is context free.  $A$ simply
+				generates all the words of the alphabet. $Y$ generates  $L(G)$ since
+				$L(G)$ is context free. Now we show this language is regular if and only
+				if $L(G) = \Sigma^*$. Suppose that $L(G) \neq  \Sigma^*$. Take $w$ such
+				that  $w \not \in L(G)$. Consider $L / \#w= N$. If $L$ is regular, then
+				so is $L / \#=N$ by $1.$ but $N$ is not regular. Hence  $L$ is not
+				regular. Now suppose that $L(G) = \Sigma^*$. Then $L = \Sigma^* \#
+				\Sigma^*$. It is easy to build a DFA that accepts this language by
+				accepting the word if it contains $\#$. Hence it is regular.
+				This proves the claim. Furthermore, we proved in class that determinining if $L(G)=\Sigma^*$ is
+				undecidable. Hence determining if $L(G)$ is regular is undecidable as well.
+
+		\end{enumerate}
+	\item We first keep track of the time $t$. Next we choose $(x_0,y_0)$ 
+		where this corresponds to the starting point of the ship. We also have to choose
+		the direction. With all of this, we can compute where the ship would be at
+		this time $t$. Since $\mathbb{N}
+		\times \mathbb{N} $ is countable (and thus $\mathbb{N}  \times \mathbb{N}
+		\times 4$ is countable as well), we can enumerate all such tuples. Hence, we can
+		generate every possible combinations and as such, we will eventually hit the
+		ship.
+\end{enumerate}
+\end{document}
