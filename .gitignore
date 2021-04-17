@@ -23,5 +23,8 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 
+qs
+test.tex
+
 # Swap
 [._]*.s[a-v][a-z]
